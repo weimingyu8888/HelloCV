@@ -1,0 +1,15 @@
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+def generate_launch_description():
+
+    return LaunchDescription([
+        Node(
+            package="your_pkg",            # ← 修改为你的包名
+            executable="vision_node",      # vision_node 可执行文件
+            name="vision_node",
+            output="screen",
+            parameters=["config/params.yaml"]
+        )
+    ])
+
