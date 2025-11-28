@@ -1,0 +1,82 @@
+vision_node:
+  ros__parameters:
+    # 调试和显示设置
+    debug_mode: true
+    show_windows: true
+    
+    # 红色检测参数 - 球体和红色目标
+    colors:
+      red:
+        lower1: [0, 120, 70]      # 红色范围1下限 (H,S,V)
+        upper1: [10, 255, 255]    # 红色范围1上限
+        lower2: [170, 120, 70]    # 红色范围2下限
+        upper2: [180, 255, 255]   # 红色范围2上限
+      green:
+        lower: [75, 40, 40]       # 绿色范围下限 (青绿色)
+        upper: [105, 255, 255]    # 绿色范围上限
+    
+    # 黑色装甲板检测参数
+    black_armor:
+      threshold: 80               # 黑色区域二值化阈值
+      number_threshold: 200       # 数字区域二值化阈值
+    
+    # 形态学操作参数
+    morphology:
+      kernel_small: 3             # 小核尺寸 (绿色掩码)
+      kernel_medium: 5            # 中核尺寸 (红色掩码)
+      kernel_large: 3             # 大核尺寸 (黑色掩码)
+    
+    # 轮廓检测参数
+    contours:
+      min_area: 100               # 最小轮廓面积
+      max_area: 50000             # 最大轮廓面积
+    
+    # 球体检测参数
+    sphere:
+      min_area: 300               # 球体最小面积
+      min_radius: 15              # 球体最小半径
+      max_radius: 200             # 球体最大半径
+      min_circularity: 0.7        # 最小圆形度
+    
+    # 装甲板检测参数
+    armor:
+      min_area: 100               # 装甲板最小面积
+      max_area: 50000             # 装甲板最大面积
+      min_rect_ratio: 0.6         # 最小矩形度
+      min_aspect_ratio: 0.7       # 最小宽高比
+      max_aspect_ratio: 2.5       # 最大宽高比
+    
+    # 矩形检测参数
+    rectangle:
+      min_area: 50                # 矩形最小面积
+      approx_epsilon: 0.03        # 多边形逼近精度系数
+    
+    # 数字识别参数
+    number_recognition:
+      target_width: 60            # 归一化宽度
+      target_height: 80           # 归一化高度
+      binary_threshold1: 200      # 第一阈值 (高亮度)
+      binary_threshold2: 50       # 第二阈值 (过滤暗区)
+      binary_threshold3: 127      # 第三阈值 (最终二值化)
+      morph_kernel_size: 2        # 形态学核大小
+      
+    # 模板路径
+    template_path: "/home/wangsong/Documents/222/Vision_Arena_2025-main/src/target_model_pkg/urdf/armor/textures/"
+
+
+    hit_armor_node:
+  ros__parameters:
+    # 相机内参（必须与 vision_node 中使用的相同）
+    fx: 600.0
+    fy: 600.0
+    cx: 320.0
+    cy: 240.0
+
+    # 无深度信息时，假设的固定目标距离（可根据场地调整）
+    armor_distance: 3.0   # 单位：米
+
+    # 弹丸参数（规则规定速度固定 1.5m/s）
+    projectile_speed: 1.5
+
+    # 调试开关
+    debug: true
